@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 class Program
 {
-    static readonly int NUM_CLINTENTS = 1000000;
+    static readonly int NUM_CLINTENTS = 1_000_000;
     static readonly Random Random = new Random();
     static readonly Rmd rmd = new Rmd();
     static void Main()
@@ -22,18 +22,20 @@ class Program
         }
         Stopwatch stopWatch = new Stopwatch();
         stopWatch.Start();
-        for (int i = 0;i < NUM_CLINTENTS; i++)
+        Thread[] clients2 = new Thread[NUM_CLINTENTS];
+        for (int i = 0; i < NUM_CLINTENTS; i++)
         {
             var money = Random.Next();
-            if (rmd.FalseOrTrue()) 
+            if (rmd.FalseOrTrue())
             {
                 var viewTransaction = new ViewTransaction()
                 {
                     Id = clients[i].Id,
                     Money = money,
                 };
-                //Thread myThread = new Thread(new ParameterizedThreadStart(bank.PerformTransaction));
-                //myThread.Start(viewTransaction);
+                clients2[i] = new Thread(new ParameterizedThreadStart(bank.PerformTransaction));
+                clients2[i].Start(viewTransaction);
+               
                 //bank.PerformTransaction(viewTransaction);
                 //clients[i].DepositingMoney(money);
             }
@@ -44,11 +46,15 @@ class Program
                     Id = clients[i].Id,
                     Money = -money,
                 };
-                //Thread myThread = new Thread(new ParameterizedThreadStart(bank.PerformTransaction));
-                //myThread.Start(viewTransaction);
+                clients2[i] = new Thread(new ParameterizedThreadStart(bank.PerformTransaction));
+                clients2[i].Start(viewTransaction);
                 //bank.PerformTransaction(viewTransaction);
                 //clients[i].WithdrawalMoney(money);
-            }
+            } 
+        }
+        for (int i = 0; i < NUM_CLINTENTS; i++)
+        {
+            clients2[i].Join();
         }
         stopWatch.Stop();
         Console.WriteLine("\t" + stopWatch + "\t");

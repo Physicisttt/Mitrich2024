@@ -9,7 +9,7 @@ namespace Project1.Core.Service
 
         public bool FalseOrTrue()
         {
-            if (random.NextDouble() < NUM_TRUE / 2) { return false; } else { return true; };
+            if (random.NextDouble() < (double)(NUM_TRUE / 2)) { return false; } else { return true; };
         }
     }
 }

@@ -24,13 +24,15 @@
         /// </summary>
         /// <param name="clientId">Индефикатор клиента, который совершает транзакцию</param>
         /// <param name="amount">Сумма транзакции, если снял, то amount отрицательный, если положил, то наоборот</param>
-        public void PerformTransaction(Guid clientId, int amount)
+        public void PerformTransaction(object viewTransaction)
         {
+            ViewTransaction ViewTransaction = (ViewTransaction)viewTransaction;
             int blockchainIndex = _random.Next(NUM_BLOCKCHAINS);
             Transaction transaction = new Transaction()
             {
-                ClientId = clientId,
-                Amount = amount,
+                ClientId = ViewTransaction.Id,
+                Amount = ViewTransaction.Money,
+                DateTime = DateTime.UtcNow,
             };
             _blockchains[blockchainIndex].AddTransaction(transaction);
         }

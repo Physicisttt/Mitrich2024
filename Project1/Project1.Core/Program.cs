@@ -1,5 +1,6 @@
 ﻿using Project1.Core.Models;
 using Project1.Core.Service;
+using System.Diagnostics;
 
 class Program
 {
@@ -19,21 +20,38 @@ class Program
             };
             clients.Add(client);
         }
-
+        Stopwatch stopWatch = new Stopwatch();
+        stopWatch.Start();
         for (int i = 0;i < NUM_CLINTENTS; i++)
         {
             var money = Random.Next();
             if (rmd.FalseOrTrue()) 
             {
-                bank.PerformTransaction(clients[i].Id, money);
-                clients[i].DepositingMoney(money);
+                var viewTransaction = new ViewTransaction()
+                {
+                    Id = clients[i].Id,
+                    Money = money,
+                };
+                //Thread myThread = new Thread(new ParameterizedThreadStart(bank.PerformTransaction));
+                //myThread.Start(viewTransaction);
+                //bank.PerformTransaction(viewTransaction);
+                //clients[i].DepositingMoney(money);
             }
             else
             {
-                bank.PerformTransaction(clients[i].Id, -money);
-                clients[i].WithdrawalMoney(money);
+                var viewTransaction = new ViewTransaction()
+                {
+                    Id = clients[i].Id,
+                    Money = -money,
+                };
+                //Thread myThread = new Thread(new ParameterizedThreadStart(bank.PerformTransaction));
+                //myThread.Start(viewTransaction);
+                //bank.PerformTransaction(viewTransaction);
+                //clients[i].WithdrawalMoney(money);
             }
         }
+        stopWatch.Stop();
+        Console.WriteLine("\t" + stopWatch + "\t");
         Console.WriteLine("Все транзакции выполнены.");
     }
 }

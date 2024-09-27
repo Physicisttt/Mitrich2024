@@ -10,6 +10,11 @@ namespace Project1.Tests
     [TestFixture]
     public class UnitTest1
     {
+        /// <summary>
+        /// Проверяется наличие денег клиента при выводе средств
+        /// </summary>
+        /// <param name="score">Счет</param>
+        /// <param name="money">Количество денег для вывода или пополнения</param>
         [TestCase(1000, 1000)]
         [TestCase(1000, -1000)]
         [TestCase(0, -1000)]

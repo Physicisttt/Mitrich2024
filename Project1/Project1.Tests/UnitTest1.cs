@@ -10,32 +10,12 @@ namespace Project1.Tests
     [TestFixture]
     public class UnitTest1
     {
-        /// <summary>
-        /// Проверяется наличие денег клиента при выводе средств
-        /// </summary>
-        /// <param name="score">Счет</param>
-        /// <param name="money">Количество денег для вывода или пополнения</param>
-        [TestCase(1000, 1000)]
-        [TestCase(1000, -1000)]
-        [TestCase(0, -1000)]
-        public void TestThat_ViewTransaction_EnoughMoney(int score, int money)
+        [TestCase(-1000, 1000)]
+        [TestCase(1000, 0)]
+        public void Test_ViewTransaction_ConstructorWithParams(int score, int money)
         {
             var client = setClientObject(score);
-            var viewTransaction = setViewTransactionObject(client.Id, money);
-
-            Assert.True(enoughMoney(viewTransaction, client));
-        }
-
-        private static bool enoughMoney(ViewTransaction newTransaction, Client client)
-        {
-            if (newTransaction.Money < 0)
-            {
-                if (-newTransaction.Money > client.Score)
-                {
-                    return false;
-                }
-            }
-            return true;
+            Assert.Throws<Exception>(delegate () { setViewTransactionObject(client.Id, money); });
         }
 
         private static Client setClientObject(int score)

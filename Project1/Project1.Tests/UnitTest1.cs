@@ -12,8 +12,8 @@ namespace Project1.Tests
     {
         [TestCase(-1000, 1000)]
         [TestCase(1000, 0)]
-        public void Test_ViewTransaction_ConstructorWithParams(int score, int money)
-        {
+        public void Test_ViewTransaction_ConstructorWithParamsCorrectly(int score, int money)
+        {   
             var client = setClientObject(score);
             Assert.Throws<Exception>(delegate () { setViewTransactionObject(client.Id, money); });
         }

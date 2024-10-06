@@ -10,6 +10,8 @@ namespace Project1.Tests
     internal class UnitTest2
     {
         [TestCase(1000)]
+        [TestCase(5)]
+        [TestCase(10000)]
         public void Test_Blockchain_ArchiveTransactionsCorrectly(int num_transactions)
         {
             var blockchain = new Blockchain();

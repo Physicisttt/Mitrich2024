@@ -8,6 +8,7 @@
         private readonly Blockchain[] _blockchains; // Список блокчейнов
         private readonly Random _random;
         private readonly int NUM_BLOCKCHAINS = 10; // Число блокчейнов в списке
+        private object threadLock = new object();
 
         public Bank()
         {
@@ -24,17 +25,19 @@
         /// </summary>
         /// <param name="clientId">Индефикатор клиента, который совершает транзакцию</param>
         /// <param name="amount">Сумма транзакции, если снял, то amount отрицательный, если положил, то наоборот</param>
-        public void PerformTransaction(object viewTransaction)
+        public void PerformTransaction(Client client)
         {
-            ViewTransaction ViewTransaction = (ViewTransaction)viewTransaction;
-            int blockchainIndex = _random.Next(NUM_BLOCKCHAINS);
-            Transaction transaction = new Transaction()
+            lock (threadLock)
             {
-                ClientId = ViewTransaction.Id,
-                Amount = ViewTransaction.Money,
-                DateTime = DateTime.UtcNow,
-            };
-            _blockchains[blockchainIndex].AddTransaction(transaction);
+                int blockchainIndex = _random.Next(NUM_BLOCKCHAINS);
+                Transaction transaction = new Transaction()
+                {
+                    ClientId = client.Id,
+                    Amount = client.Score,
+                    DateTime = DateTime.UtcNow,
+                };
+                _blockchains[blockchainIndex].AddTransaction(transaction);
+            }
         }
     }
 }

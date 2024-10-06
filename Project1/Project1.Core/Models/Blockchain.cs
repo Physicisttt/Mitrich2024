@@ -34,7 +34,7 @@
         /// </summary>
         private void Archive()
         {
-            Console.WriteLine($"Цепочка архивирована с {MAX_TRANSACTIONS} транзакциями.");
+            //Console.WriteLine($"Цепочка архивирована с {MAX_TRANSACTIONS} транзакциями.");
             _transactions.Clear(); // Очищаем транзакции после архивирования
         }
     }

@@ -1,10 +1,5 @@
 ﻿using Project1.Core.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project1.Tests
 {

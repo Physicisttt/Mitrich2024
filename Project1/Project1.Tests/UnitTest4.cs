@@ -1,14 +1,8 @@
 ﻿using Project1.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project1.Tests
 {
-    internal class UnitTest_4
+    internal class UnitTest4
     {
         [Test]
         public void Test_PerformTransaction_ChangeScoreCorrectly()

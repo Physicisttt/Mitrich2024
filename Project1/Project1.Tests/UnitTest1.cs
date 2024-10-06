@@ -1,4 +1,5 @@
-﻿using Project1.Core.Models;
+﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using Project1.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,16 @@ namespace Project1.Tests
     [TestFixture]
     public class UnitTest1
     {
-        [TestCase(-1000, 1000)]
-        [TestCase(1000, 0)]
-        public void Test_ViewTransaction_ConstructorWithParamsCorrectly(int score, int money)
+        [TestCase(-1000)]
+        public void Test_Client_ConstructorWithParamsCorrectly(int score)
         {   
-            var client = setClientObject(score);
-            Assert.Throws<Exception>(delegate () { setViewTransactionObject(client.Id, money); });
+            Assert.Throws<Exception>(delegate () { setClientObject(score); });
+        }
+
+        [TestCase(-1000)]
+        public void Test_Transaction_ConstructorWithParamsCorrectly(int amount)
+        {
+            Assert.Throws<Exception>(delegate () { setClientObject(amount); });
         }
 
         private static Client setClientObject(int score)
@@ -27,12 +32,14 @@ namespace Project1.Tests
             };
         }
 
-        private static ViewTransaction setViewTransactionObject(Guid id, int money)
+        private static Transaction setTransactionObject(int amount)
         {
             return new()
             {
-                Id = id,
-                Money = money
+                Id = Guid.NewGuid(),
+                ClientId = Guid.NewGuid(),
+                Amount = amount,
+                DateTime = new DateTime()
             };
         }
     }

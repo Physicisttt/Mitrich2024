@@ -7,6 +7,7 @@
     {
         private readonly List<Transaction> _transactions; // Цепочка блокчейна
         private readonly int MAX_TRANSACTIONS = 100; // Максимальное число транзакций в цепочке
+        private static Mutex mtx = new Mutex();
 
         public Blockchain()
         {
@@ -20,12 +21,15 @@
         /// <returns></returns>
         public bool AddTransaction(Transaction transaction)
         {
+            mtx.WaitOne();
             _transactions.Add(transaction);
             if (_transactions.Count >= MAX_TRANSACTIONS)
             {
                 Archive();
+                mtx.ReleaseMutex();
                 return false; // Уведомляем, что цепочка полная
             }
+            mtx.ReleaseMutex();
             return true; // Уведомляем, что транзакция успешно добавлена
         }
 

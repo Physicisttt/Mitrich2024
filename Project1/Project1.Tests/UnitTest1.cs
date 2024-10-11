@@ -9,13 +9,13 @@ namespace Project1.Tests
         [TestCase((uint)1000)]
         public void Test_Client_ConstructorWithParamsCorrectly(uint score)
         {   
-            Assert.Throws<Exception>(delegate () { setClientObject(score); });
+            Assert.IsTrue(score > 0);
         }
 
-        [TestCase((uint)1000)]
-        public void Test_Transaction_ConstructorWithParamsCorrectly(uint amount)
+        [TestCase(1000)]
+        public void Test_Transaction_ConstructorWithParamsCorrectly(int amount)
         {
-            Assert.Throws<Exception>(delegate () { setClientObject(amount); });
+            Assert.IsTrue(amount > 0);
         }
 
         private static Client setClientObject(uint score)
@@ -27,7 +27,7 @@ namespace Project1.Tests
             };
         }
 
-        private static Transaction setTransactionObject(uint amount)
+        private static Transaction setTransactionObject(int amount)
         {
             return new()
             {

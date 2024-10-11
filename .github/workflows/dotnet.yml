@@ -23,6 +23,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./Project1/Project1.sln
     - name: Build
-      run: dotnet build --no-restore ./Project1/Project1.Core/Project1.Core.csproj
+      run: dotnet build --no-restore ./Project1/Project1.sln
     - name: Test
-      run: dotnet test --no-build --verbosity normal ./Project1/Project1.Tests/Project1.Tests.csproj
+      run: dotnet test --no-build --verbosity normal ./Project1/Project1.sln

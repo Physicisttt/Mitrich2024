@@ -25,4 +25,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore ./Project1/Project1.Core/Project1.Core.csproj
     - name: Test
-      run: dotnet test --no-build --verbosity normal ./Project1/Project1.Tests/Project1.Tests.csproj
+      run: dotnet test --verbosity normal ./Project1/Project1.Tests/Project1.Tests.csproj

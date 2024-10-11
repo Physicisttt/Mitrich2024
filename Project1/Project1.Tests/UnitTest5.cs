@@ -8,6 +8,10 @@ namespace Project1.Tests
 {
     internal class UnitTest5
     {
+        [Test]
+        public void Test()
+        {
 
+        }
     }
 }

@@ -17,7 +17,7 @@ class Program
         ProgramThreads(NUM_CLINTENTS, MAX_SCORE, COUNT_THREAD, MAX_SUM_TRANSACTION);
     }
     
-    static void ProgramNotThreads(int num_clients, int max_score, int max_sum_transaction)
+    public static void ProgramNotThreads(int num_clients, int max_score, int max_sum_transaction)
     {
         Bank bank = new Bank();
         List<Client> clients = new List<Client>();
@@ -49,7 +49,7 @@ class Program
         Console.WriteLine("Все транзакции выполнены.");
     }
 
-    static void ProgramThreads(int num_clients, int max_score, int count_thread, int max_sum_transaction)
+    public static void ProgramThreads(int num_clients, int max_score, int count_thread, int max_sum_transaction)
     {
         Bank bank = new Bank();
         List<Client> clients = new List<Client>();

@@ -24,10 +24,10 @@
         /// </summary>
         /// <param name="clientId">Индефикатор клиента, который совершает транзакцию</param>
         /// <param name="amount">Сумма транзакции, если снял, то amount отрицательный, если положил, то наоборот</param>
-        public void PerformTransaction(Client client, uint money)
+        public void PerformTransaction(Client client, int money)
         {
-            if (money < 0) client.DepositingMoney(money);
-            else client.WithdrawalMoney(money);
+            if (money < 0) client.DepositingMoney((uint)money);
+            else client.WithdrawalMoney((uint)money);
 
             int blockchainIndex = _random.Next(NUM_BLOCKCHAINS);
             Transaction transaction = new Transaction()

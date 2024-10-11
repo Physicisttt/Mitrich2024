@@ -1,7 +1,4 @@
 ﻿using Project1.Core.Func;
-using Project1.Core.Models;
-using Project1.Core.Service;
-using System.Diagnostics;
 
 class Program
 {

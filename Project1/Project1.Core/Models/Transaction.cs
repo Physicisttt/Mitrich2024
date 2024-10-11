@@ -18,7 +18,7 @@
         /// <summary>
         /// Сумма транзакции
         /// </summary>
-        public int Amount { get; set; }
+        public uint Amount { get; set; }
 
         /// <summary>
         /// Временная отметка транзакции

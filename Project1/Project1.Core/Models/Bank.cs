@@ -26,6 +26,9 @@
         /// <param name="amount">Сумма транзакции, если снял, то amount отрицательный, если положил, то наоборот</param>
         public void PerformTransaction(Client client, int money)
         {
+            if (money < 0) client.DepositingMoney(money);
+            else client.WithdrawalMoney(money);
+
             int blockchainIndex = _random.Next(NUM_BLOCKCHAINS);
             Transaction transaction = new Transaction()
             {

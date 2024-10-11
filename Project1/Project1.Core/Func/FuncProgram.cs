@@ -29,10 +29,10 @@ namespace Project1.Core.Func
             foreach (Client client in clients)
             {
                 var money = Random.Next(max_sum_transaction);
-                if (rmd.FalseOrTrue()) client.DepositingMoney(money);
-                else client.WithdrawalMoney(money);
+                if (rmd.FalseOrTrue())  bank.PerformTransaction(client, -money);
+                else bank.PerformTransaction(client, money);
 
-                bank.PerformTransaction(client, money);
+
             }
 
             stopWatch.Stop();
@@ -53,10 +53,6 @@ namespace Project1.Core.Func
                     Score = Random.Next(max_score)
                 };
                 clients.Add(client);
-
-                var money = Random.Next(max_sum_transaction);
-                if (rmd.FalseOrTrue()) clients[i].DepositingMoney(money);
-                else clients[i].WithdrawalMoney(money);
             }
 
 
@@ -81,10 +77,9 @@ namespace Project1.Core.Func
                 for (int i = start; i < end; i++)
                 {
                     var money = Random.Next(max_sum_transaction);
-                    if (rmd.FalseOrTrue()) clients[i].DepositingMoney(money);
-                    else clients[i].WithdrawalMoney(money);
+                    if (rmd.FalseOrTrue()) bank.PerformTransaction(clients[i], -money);
+                    else bank.PerformTransaction(clients[i], money);
 
-                    bank.PerformTransaction(clients[i], money);
                 }
             }
         }

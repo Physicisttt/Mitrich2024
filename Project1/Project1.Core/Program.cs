@@ -1,7 +1,6 @@
 ﻿using Project1.Core.Models;
 using Project1.Core.Service;
 using System.Diagnostics;
-using System.Threading;
 
 class Program
 {
@@ -14,33 +13,71 @@ class Program
     static readonly int COUNT_THREAD = 10;
     static void Main()
     {
+        ProgramNotThreads(NUM_CLINTENTS, MAX_SCORE, MAX_SUM_TRANSACTION);
+        ProgramThreads(NUM_CLINTENTS, MAX_SCORE, COUNT_THREAD, MAX_SUM_TRANSACTION);
+    }
+    
+    static void ProgramNotThreads(int num_clients, int max_score, int max_sum_transaction)
+    {
         Bank bank = new Bank();
         List<Client> clients = new List<Client>();
-        Thread[] threads = new Thread[COUNT_THREAD];
 
-        for (int i = 0; i < NUM_CLINTENTS; i++)
+        for (int i = 0; i < num_clients; i++)
         {
             Client client = new Client()
             {
-                Score = Random.Next(MAX_SCORE)
+                Score = Random.Next(max_score)
             };
             clients.Add(client);
         }
 
         Stopwatch stopWatch = new Stopwatch();
         stopWatch.Start();
+                
+
+        foreach (Client client in clients)
+        {
+            var money = Random.Next(max_sum_transaction);
+            if (rmd.FalseOrTrue()) client.DepositingMoney(money);
+            else client.WithdrawalMoney(money);
+
+            bank.PerformTransaction(client, money);
+        }
+
+        stopWatch.Stop();
+        Console.WriteLine("\t" + stopWatch + "\t" + "\n");
+        Console.WriteLine("Все транзакции выполнены.");
+    }
+
+    static void ProgramThreads(int num_clients, int max_score, int count_thread, int max_sum_transaction)
+    {
+        Bank bank = new Bank();
+        List<Client> clients = new List<Client>();
+        Thread[] threads = new Thread[count_thread];
+
+        for (int i = 0; i < num_clients; i++)
+        {
+            Client client = new Client()
+            {
+                Score = Random.Next(max_score)
+            };
+            clients.Add(client);
+
+            var money = Random.Next(max_sum_transaction);
+            if (rmd.FalseOrTrue()) clients[i].DepositingMoney(money);
+            else clients[i].WithdrawalMoney(money);
+        }
         
-        for (int i = 0; i < COUNT_THREAD; i++)
+        
+        Stopwatch stopWatch = new Stopwatch();
+        stopWatch.Start();
+
+        for (int i = 0; i < count_thread; i++)
         {
             threads[i] = new Thread(new ParameterizedThreadStart(Box));
             threads[i].Name = string.Format("Работает поток: #{0}", i);
             threads[i].Start(i);
         }
-
-        /*foreach (Client client in clients)
-        {
-            bank.PerformTransaction(client);
-        }*/
 
         stopWatch.Stop();
         Console.WriteLine("\t" + stopWatch + "\t" + "\n");
@@ -48,11 +85,15 @@ class Program
 
         void Box(object j)
         {
-            int start = NUM_CLINTENTS / COUNT_THREAD * (int)j;
-            int end = start + NUM_CLINTENTS / COUNT_THREAD;
+            int start = num_clients / count_thread * (int)j;
+            int end = start + num_clients / count_thread;
             for (int i = start; i < end; i++)
             {
-                bank.PerformTransaction(clients[i]);
+                var money = Random.Next(max_sum_transaction);
+                if (rmd.FalseOrTrue()) clients[i].DepositingMoney(money);
+                else clients[i].WithdrawalMoney(money);
+
+                bank.PerformTransaction(clients[i], money);
             }
         }
     }

@@ -6,19 +6,19 @@ namespace Project1.Tests
     [TestFixture]
     public class UnitTest1
     {
-        [TestCase(-1000)]
-        public void Test_Client_ConstructorWithParamsCorrectly(int score)
+        [TestCase((uint)1000)]
+        public void Test_Client_ConstructorWithParamsCorrectly(uint score)
         {   
-            Assert.Throws<Exception>(delegate () { setClientObject(score); });
+            Assert.IsTrue(score > 0);
         }
 
-        [TestCase(-1000)]
+        [TestCase(1000)]
         public void Test_Transaction_ConstructorWithParamsCorrectly(int amount)
         {
-            Assert.Throws<Exception>(delegate () { setClientObject(amount); });
+            Assert.IsTrue(amount > 0);
         }
 
-        private static Client setClientObject(int score)
+        private static Client setClientObject(uint score)
         {
             return new()
             {

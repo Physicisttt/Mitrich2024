@@ -1,5 +1,4 @@
-﻿
-namespace Project1.Core.Service
+﻿namespace Project1.Core.Service
 {
     public class Rmd
     {

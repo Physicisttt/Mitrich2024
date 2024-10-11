@@ -17,7 +17,7 @@ namespace Project1.Core.Func
             {
                 Client client = new Client()
                 {
-                    Score = Random.Next(max_score)
+                    Score = (uint)Random.Next(max_score)
                 };
                 clients.Add(client);
             }
@@ -28,7 +28,7 @@ namespace Project1.Core.Func
 
             foreach (Client client in clients)
             {
-                var money = Random.Next(max_sum_transaction);
+                int money = Random.Next(max_sum_transaction);
                 if (rmd.FalseOrTrue())  bank.PerformTransaction(client, -money);
                 else bank.PerformTransaction(client, money);
 
@@ -50,7 +50,7 @@ namespace Project1.Core.Func
             {
                 Client client = new Client()
                 {
-                    Score = Random.Next(max_score)
+                    Score = (uint)Random.Next(max_score)
                 };
                 clients.Add(client);
             }

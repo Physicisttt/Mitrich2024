@@ -10,7 +10,7 @@ namespace Project1.Tests
             var client = setClientObject();
             int original_score = client.Score;
             var bank = new Bank();
-            bank.PerformTransaction(client);
+            bank.PerformTransaction(client, 1000);
             Assert.That(client.Score, Is.Not.EqualTo(original_score));
         }
         private static Client setClientObject()

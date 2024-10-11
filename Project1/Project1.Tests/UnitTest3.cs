@@ -1,57 +1,34 @@
-﻿using Project1.Core.Models;
+﻿using Project1.Core.Func;
+using Project1.Core.Models;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Project1.Tests
 {
     internal class UnitTest3
     {
-        [TestCase(1)]
         [TestCase(2)]
+        [TestCase(5)]
         [TestCase(10)]
-        public void Test_MeasureExecutionTime(int num_threads)
+        public void Test_ProgramThreads_MeasureExecutionTime(int num_threads)
         {
             int num_clients = 1000000;
-            var bank = new Bank();
-            List<Client> clients = new List<Client>();
-            Thread[] threads = new Thread[num_threads];
+            int max_score = 10000;
+            int max_sum_transaction = 5000;
 
-            for (int i = 0; i < num_clients; i++)
-            {
-                clients.Add(setClientObject());
-            }
+            var stopwatch_no_threads = new Stopwatch();
+            var stopwatch_with_threads = new Stopwatch();
 
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
+            stopwatch_no_threads.Start();
+            FuncProgram.ProgramNotThreads(num_clients, max_score, max_sum_transaction);
+            stopwatch_no_threads.Stop();
+            
+            stopwatch_with_threads.Start();
+            FuncProgram.ProgramThreads(num_clients, max_score, num_threads, max_sum_transaction);
+            stopwatch_with_threads.Stop();
 
-            for (int i = 0; i < num_threads; i++)
-            {
-                threads[i] = new Thread(new ParameterizedThreadStart(Box));
-                threads[i].Name = string.Format("Работает поток: #{0}", i);
-                threads[i].Start(i);
-            }
 
-            stopwatch.Stop();
-            Console.WriteLine($"Время работы: {stopwatch.ElapsedMilliseconds}");
-            Assert.IsTrue(stopwatch.ElapsedMilliseconds < 10);
-
-            void Box(object j)
-            {
-                int start = num_clients / num_threads * (int)j;
-                int end = start + num_clients / num_threads;
-                for (int i = start; i < end; i++)
-                {
-                    bank.PerformTransaction(clients[i]);
-                }
-            }
-        }
-
-        private static Client setClientObject()
-        {
-            return new()
-            {
-                Id = Guid.NewGuid(),
-                Score = 1000
-            };
+            Assert.IsTrue(stopwatch_with_threads.ElapsedMilliseconds < stopwatch_no_threads.ElapsedMilliseconds);
         }
     }
 }

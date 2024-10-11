@@ -13,13 +13,13 @@
         /// <summary>
         /// Денежный счет клиента
         /// </summary>
-        public int Score { get; set; }
+        public uint Score { get; set; }
 
         /// <summary>
         /// Добавление денег на счет
         /// </summary>
         /// <param name="N">Количество вносимых денег на счет</param>
-        public void DepositingMoney(int N)
+        public void DepositingMoney(uint N)
         {
             Score += N;
         }
@@ -28,7 +28,7 @@
         /// Снятие денег со счета
         /// </summary>
         /// <param name="K">Количество снимаемых денег со счета</param>
-        public void WithdrawalMoney(int K)
+        public void WithdrawalMoney(uint K)
         {
             Score -= K;
         }

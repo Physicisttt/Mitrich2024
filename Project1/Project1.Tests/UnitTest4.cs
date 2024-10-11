@@ -8,7 +8,7 @@ namespace Project1.Tests
         public void Test_PerformTransaction_ChangeScoreCorrectly()
         {
             var client = setClientObject();
-            int original_score = client.Score;
+            uint original_score = client.Score;
             var bank = new Bank();
             bank.PerformTransaction(client, 1000);
             Assert.That(client.Score, Is.Not.EqualTo(original_score));
